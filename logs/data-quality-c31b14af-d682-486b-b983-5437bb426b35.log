@@ -1,0 +1,4 @@
+source=user row=17 transaction_id=USR-001 issues=Duplicate transaction_id in user file: USR-001
+source=user row=20 transaction_id=USR-018 issues=Invalid timestamp: "2024-03-09T"
+source=user row=21 transaction_id=USR-019 issues=Invalid quantity: must be non-negative, found -0.1
+source=user row=26 transaction_id=USR-024 issues=Invalid timestamp: "2024-03-12T"; Missing type
