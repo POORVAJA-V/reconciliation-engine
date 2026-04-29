@@ -82,6 +82,51 @@ Start the API server:
 npm start
 ```
 
+## Deployment
+
+The project is ready to deploy on any Node.js hosting provider that supports `npm install` and `npm start`.
+
+### Render Deployment
+
+1. Push this repository to GitHub.
+2. Open Render and create a new `Web Service`.
+3. Connect your GitHub repository.
+4. Use these settings:
+
+```text
+Environment: Node
+Build Command: npm ci
+Start Command: npm start
+Health Check Path: /health
+```
+
+5. Add these environment variables if they are not auto-detected from `render.yaml`:
+
+```text
+USER_CSV_PATH=./data/user_transactions.csv
+EXCHANGE_CSV_PATH=./data/exchange_transactions.csv
+TIMESTAMP_TOLERANCE_SECONDS=300
+QUANTITY_TOLERANCE_PCT=0.01
+DB_PROVIDER=file
+FILE_DB_PATH=./db/reconciliation-db.json
+```
+
+After deployment, verify the live API:
+
+```bash
+curl https://your-service-url.onrender.com/health
+```
+
+Run reconciliation on the deployed API:
+
+```bash
+curl -X POST https://your-service-url.onrender.com/reconcile \
+  -H "Content-Type: application/json" \
+  -d "{}"
+```
+
+This repository also includes a `Dockerfile`, so it can be deployed on Docker-based platforms if needed.
+
 By default, the server runs on:
 
 ```text

@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: koinx-reconciliation-engine
+    env: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: USER_CSV_PATH
+        value: ./data/user_transactions.csv
+      - key: EXCHANGE_CSV_PATH
+        value: ./data/exchange_transactions.csv
+      - key: TIMESTAMP_TOLERANCE_SECONDS
+        value: "300"
+      - key: QUANTITY_TOLERANCE_PCT
+        value: "0.01"
+      - key: DB_PROVIDER
+        value: file
+      - key: FILE_DB_PATH
+        value: ./db/reconciliation-db.json
